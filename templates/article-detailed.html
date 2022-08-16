@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Detailed Article{% endblock %}
+
+{% block content %}
+<div class="article-entry">
+    <h2>{{Article.title}}</h2>
+        <p>{{Article.author}} | {{Article.date}}</p>
+        <p>{{Article.body}}</p>
+        {% if request.user == Article.author %}
+        <a href="{% url 'update-article' Article.id %}" class="btn btn-primary">Edit</a>
+        <a href="{% url 'delete-article' Article.id %}" class="btn btn-danger">Delete</a>
+        <a href="{% url 'articles' %}" class="btn btn-outline-info">View all Articles</a>
+        {% else %}
+        <a href="{% url 'articles' %}" class="btn btn-outline-info">View all Articles</a>
+        {% endif %}
+        
+{% endblock  %}

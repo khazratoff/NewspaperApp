@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Articles{% endblock %}
+
+{% block content %}
+{% for article in ArticlesList %}
+<div class="card">
+  <div class="card-header">
+    by {{article.author}} | {{article.date}}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{article.title}}</h5>
+    <p class="card-text">{{article.body}}</p>
+    <a href="{% url 'detail-article' article.id %}" class="btn btn-warning">More...</a>
+  </div>
+  {% if article.comments.all %}
+  <div class="card-footer">
+    <p style="font-weight:bold ; color: red;">Comments</p>
+    {% for comment in article.comments.all %}
+    <p>
+      <span style="font-weight: bolder ;">{{comment.author}} &middot; </span>
+      "{{comment}}"
+    </p>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+</div>
+<br>
+
+{% endfor %}
+{% endblock %}
